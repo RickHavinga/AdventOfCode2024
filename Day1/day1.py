@@ -1,9 +1,9 @@
 def parse(input):
     data=[[],[]]
-    for line in f:
-        splits= line.strip().split()
-        data[0].append(int(splits[0]))
-        data[1].append(int(splits[1]))
+    for line in input:
+        left,right=map(int, line.split())
+        data[0].append(left)
+        data[1].append(right)
     data[0].sort()
     data[1].sort()
     return data
