@@ -10,9 +10,7 @@ def parse(input):
                 matrix[(x,y)]=False
             else:
                 matrix[(x,y)]=True
-            w=x
-        h=y
-    return matrix, start, h, w
+    return matrix, start
 
 def part1(matrix, start):
     dirs={0:(0,-1), 1:(1,0), 2:(0,1), 3:(-1,0)}
@@ -30,7 +28,7 @@ def part1(matrix, start):
                 i+=1
         else:
             inMatrix=False
-    return len(visited)
+    return len(visited), visited
     
 def check(matrix, start):    
     dirs={0:(0,-1), 1:(1,0), 2:(0,1), 3:(-1,0)}
@@ -52,18 +50,18 @@ def check(matrix, start):
             inMatrix=False
     return False
 
-def part2(matrix, start, h, w):
+def part2(matrix, start, visited):
     count=0
-    for y in range(h+1):
-        for x in range(w+1):
-            if (matrix[(x,y)]):
-                tmpMatrix=matrix.copy()
-                tmpMatrix[(x,y)]=False
-                if (check(tmpMatrix, start)):
-                    count+=1
+    for x,y in visited:
+        if (matrix[(x,y)]):
+            tmpMatrix=matrix.copy()
+            tmpMatrix[(x,y)]=False
+            if (check(tmpMatrix, start)):
+                count+=1
     return count
 
 f = open("Day6/input", "r")
-matrix, start, h, w = parse(f)
-print(f"Part 1: {part1(matrix, start)} ")
-print(f"Part 2: {part2(matrix, start, h, w)} ")
+matrix, start = parse(f)
+answer1, visited=part1(matrix,start)
+print(f"Part 1: {answer1} ")
+print(f"Part 2: {part2(matrix, start, visited)} ")
